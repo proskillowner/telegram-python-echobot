@@ -23,9 +23,9 @@ def echo():
 	else:
 		text = re.sub(r'\W', '_', text)
 
-	bot.sendChatAction(chat_id=chat_id, action='typing')
+	#bot.sendChatAction(chat_id=chat_id, action='typing')
 
-	sleep(1)
+	#sleep(1)
 
 	bot.sendMessage(chat_id=chat_id, text=text)
 
@@ -34,8 +34,8 @@ def echo():
 
 @app.route('/setWebhook', methods=['GET', 'POST'])
 def setWebhook():
-	s = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
-	if s:
+	result = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
+	if result:
 		return 'setWebhook success'
 	else:
 		return 'setWebhook fail'
