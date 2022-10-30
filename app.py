@@ -14,9 +14,7 @@ def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 	print(update)
 	key = 'message'
-	if key in update:
-		print(update.message)
-	else:
+	if !update.has_key('message'):
 		return 'cancel'
 
 	chat_id = update.message.chat.id
