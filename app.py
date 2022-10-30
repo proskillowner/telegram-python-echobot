@@ -13,6 +13,7 @@ app = Flask(__name__)
 def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 	print(update)
+	print(type(update))
 	key = 'message'
 	if update.has_key('message'):
 		print('aaa')
