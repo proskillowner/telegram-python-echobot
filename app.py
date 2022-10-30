@@ -11,17 +11,12 @@ app = Flask(__name__)
 
 @app.route('/{}'.format(TOKEN), methods=['POST'])
 def echo():
-	update = telegram.Update.de_json(request.get_json(force=True), bot)
-	print(update)
-	print(type(update))
-	key = 'message'
-	if update.has_key('message'):
-		print('aaa')
-	else:
+	chat = telegram.Update.de_json(request.get_json(force=True), bot)
+	if 'message' not in chat:
 		return 'cancel'
 
-	chat_id = update.message.chat.id
-	text = update.message.text.encode('utf-8').decode()
+	chat_id = chat.message.chat.id
+	text = chat.message.text.encode('utf-8').decode()
 
 	if text == '/start':
 		text = 'Welcome'
