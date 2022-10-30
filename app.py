@@ -1,4 +1,3 @@
-import re
 from time import sleep
 from flask import Flask, request
 import telegram
@@ -20,8 +19,6 @@ def echo():
 
 		if text == '/start':
 			text = 'Welcome'
-		#else:
-		#	text = re.sub(r'\W', '_', text)
 
 		bot.sendChatAction(chat_id=chat_id, action='typing')
 
@@ -30,7 +27,7 @@ def echo():
 		bot.sendMessage(chat_id=chat_id, text=text)
 	except Exception as exception:
 		print('exception : ', exception)
-		return 'Exception'
+		return 'exception'
 	else:
 		print('ok')
 		return 'ok'
