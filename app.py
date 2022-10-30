@@ -28,10 +28,11 @@ def echo():
 		sleep(1)
 
 		bot.sendMessage(chat_id=chat_id, text=text)
-	except Error, Argument:
-		print('error : ', Argument)
-		return 'error'
+	except Exception as exception:
+		print('exception : ', exception)
+		return 'Exception'
 	else:
+		print('ok')
 		return 'ok'
 
 
