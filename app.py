@@ -13,7 +13,7 @@ app = Flask(__name__)
 def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-	if 'message' not in update:
+	if "message" not in update:
 		return 'cancel'
 
 	chat_id = update.message.chat.id
@@ -28,7 +28,7 @@ def echo():
 
 	sleep(1)
 
-	bot.sendMessage(chat_id=chat_id, text=text, reply_to_message_id=message_id)
+	bot.sendMessage(chat_id=chat_id, text=text)
 
 	return 'ok'
 
