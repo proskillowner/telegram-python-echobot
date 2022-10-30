@@ -14,29 +14,25 @@ app = Flask(__name__)
 def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-	print(update)
+	try:
+		chat_id = update.message.chat.id
+		text = update.message.text.encode('utf-8').decode()
 
-	if hasattr(update, 'message'):
-		print('has attr message')
+		if text == '/start':
+			text = 'Welcome'
+		else:
+			text = re.sub(r'\W', '_', text)
+
+		bot.sendChatAction(chat_id=chat_id, action='typing')
+
+		sleep(1)
+
+		bot.sendMessage(chat_id=chat_id, text=text)
+	except Error, Argument:
+		print('error : ', Argument)
+		return 'error'
 	else:
-		print('not has attr message')
-		return 'cancel'
-
-	chat_id = update.message.chat.id
-	text = update.message.text.encode('utf-8').decode()
-
-	if text == '/start':
-		text = 'Welcome'
-	else:
-		text = re.sub(r'\W', '_', text)
-
-	bot.sendChatAction(chat_id=chat_id, action='typing')
-
-	sleep(1)
-
-	bot.sendMessage(chat_id=chat_id, text=text)
-
-	return 'ok'
+		return 'ok'
 
 
 @app.route('/setWebhook', methods=['GET', 'POST'])
