@@ -1,4 +1,5 @@
 import re
+from time import sleep
 from flask import Flask, request
 import telegram
 from config import TOKEN, URL
