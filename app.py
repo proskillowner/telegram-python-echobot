@@ -20,8 +20,8 @@ def echo():
 
 		if text == '/start':
 			text = 'Welcome'
-		else:
-			text = re.sub(r'\W', '_', text)
+		#else:
+		#	text = re.sub(r'\W', '_', text)
 
 		bot.sendChatAction(chat_id=chat_id, action='typing')
 
