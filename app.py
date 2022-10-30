@@ -12,6 +12,8 @@ app = Flask(__name__)
 @app.route('/{}'.format(TOKEN), methods=['POST'])
 def echo():
 	chat = telegram.Update.de_json(request.get_json(force=True), bot)
+	print(typeof(chat))
+	return 'ok'
 	if 'message' not in chat:
 		return 'cancel'
 
