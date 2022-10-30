@@ -13,7 +13,8 @@ app = Flask(__name__)
 def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 	print(update)
-	if 'message' not in update:
+	if 'message' in update:
+	else:
 		return 'cancel'
 
 	chat_id = update.message.chat.id
