@@ -9,34 +9,36 @@ bot = telegram.Bot(token=TOKEN)
 app = Flask(__name__)
 
 @app.route('/{}'.format(TOKEN), methods=['POST'])
-def respond():
-	print('respond')
+def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-	chat_id = update.message.chat.id
-	msg_id = update.message.message_id
+	if 'message' not in update:
+		return 'cancel'
 
+	chat_id = update.message.chat.id
 	text = update.message.text.encode('utf-8').decode()
-	print('got text message :', text)
 
 	if text == '/start':
 		text = 'Welcome'
-		bot.sendMessage(chat_id=chat_id, text=text, reply_to_message_id=msg_id)
 	else:
 		text = re.sub(r'\W', '_', text)
-		bot.sendMessage(chat_id=chat_id, text=text, reply_to_message_id=msg_id)
+
+	bot.sendChatAction(chat_id=chat_id, action='typing')
+
+	sleep(1)
+
+	bot.sendMessage(chat_id=chat_id, text=text)
 
 	return 'ok'
 
 
-@app.route('/set_webhook', methods=['GET', 'POST'])
-def set_webhook():
-	print('set_webhook')
+@app.route('/setWebhook', methods=['GET', 'POST'])
+def setWebhook():
 	s = bot.setWebhook('{URL}{HOOK}'.format(URL=URL, HOOK=TOKEN))
 	if s:
-		return 'webhook setup ok'
+		return 'setWebhook success'
 	else:
-		return 'webhook setup failed'
+		return 'setWebhook fail'
 
 
 @app.route('/')
