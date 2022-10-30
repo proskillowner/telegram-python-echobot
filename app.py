@@ -1,34 +1,32 @@
 import re
 from flask import Flask, request
 import telegram
-from echobot.credentials import bot_user_name, TOKEN, URL
+from config import TOKEN, URL
 
 
 bot = telegram.Bot(token=TOKEN)
 
 app = Flask(__name__)
 
+
 @app.route('/{}'.format(TOKEN), methods=['POST'])
 def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 
-	#if 'message' not in update:
-	#	return 'cancel'
+	if 'message' not in update:
+		return 'cancel'
 
 	chat_id = update.message.chat.id
-	message_id = update.message.message_id
 	text = update.message.text.encode('utf-8').decode()
 
 	if text == '/start':
 		text = 'Welcome'
-		bot.sendMessage(chat_id=chat_id, text=text, reply_to_message_id=message_id)
 	else:
 		text = re.sub(r'\W', '_', text)
-		bot.sendMessage(chat_id=chat_id, text=text, reply_to_message_id=message_id)
 
-	#bot.sendChatAction(chat_id=chat_id, action='typing')
+	bot.sendChatAction(chat_id=chat_id, action='typing')
 
-	#sleep(1)
+	sleep(1)
 
 	bot.sendMessage(chat_id=chat_id, text=text, reply_to_message_id=message_id)
 
