@@ -13,8 +13,9 @@ app = Flask(__name__)
 def echo():
 	update = telegram.Update.de_json(request.get_json(force=True), bot)
 	print(update)
-	if 'message' in update:
-		pring(update.message)
+	key = 'message'
+	if key in update:
+		print(update.message)
 	else:
 		return 'cancel'
 
