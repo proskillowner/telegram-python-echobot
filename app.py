@@ -16,7 +16,7 @@ def echo():
 	key = 'message'
 	if update.has_key('message'):
 		print('aaa')
-	else
+	else:
 		return 'cancel'
 
 	chat_id = update.message.chat.id
