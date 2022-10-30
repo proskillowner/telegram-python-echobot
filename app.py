@@ -16,11 +16,11 @@ def echo():
 
 	print(update)
 
-	if not hasattr(update, 'message'):
+	if hasattr(update, 'message'):
+		print('has attr message')
+	else:
 		print('not has attr message')
 		return 'cancel'
-	else:
-		print('has attr message')
 
 	chat_id = update.message.chat.id
 	text = update.message.text.encode('utf-8').decode()
